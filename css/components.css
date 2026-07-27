@@ -458,24 +458,110 @@
   font-size: 0.8125rem;
 }
 
-/* Join */
+/* Pillars */
 
-.join-tracks {
+.pillar-grid {
   display: grid;
+  gap: var(--space-lg);
 }
 
-@media (min-width: 56rem) {
-  .join-tracks {
-    grid-template-columns: 1fr 1fr;
+@media (min-width: 48rem) {
+  .pillar-grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
+
+.pillar-card h3 {
+  margin-bottom: var(--space-sm);
+}
+
+.pillar-card p {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+}
+
+.pillar-card .section-num {
+  margin-bottom: var(--space-sm);
+}
+
+/* Programme */
+
+.programme-list {
+  margin-top: var(--space-xl);
+}
+
+.programme-row {
+  display: grid;
+  gap: var(--space-sm);
+  padding: var(--space-md) 0;
+  border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: 48rem) {
+  .programme-row {
+    grid-template-columns: 1fr 2fr;
+    gap: var(--space-xl);
+    align-items: baseline;
+  }
+}
+
+.programme-row dt {
+  font-weight: 600;
+  font-size: 0.9375rem;
+}
+
+.programme-when {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  margin-top: 0.125rem;
+}
+
+.programme-row dd {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+}
+
+.programme-note {
+  margin-top: var(--space-lg);
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Join */
 
 .join-track {
   padding: var(--space-2xl) var(--space-lg);
 }
 
-.join-track--member {
+.join-track--primary {
   background: var(--bg);
+}
+
+.join-track--primary .join-track-inner {
+  max-width: var(--grid-width);
+}
+
+.join-track--research {
+  background: var(--bg-alt);
+  border-top: 1px solid var(--border);
+}
+
+.join-track--research .join-track-inner {
+  max-width: 26rem;
 }
 
 .join-track--sponsor {
@@ -483,16 +569,13 @@
   border-top: 1px solid var(--border);
 }
 
-@media (min-width: 56rem) {
-  .join-track--sponsor {
-    border-top: none;
-    border-left: 1px solid var(--border);
-  }
-}
-
 .join-track-inner {
   max-width: 26rem;
   margin: 0 auto;
+}
+
+.join-faq .join-track-inner {
+  max-width: 26rem;
 }
 
 .join-track-intro {
