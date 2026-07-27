@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events · MQR</title>
+  <meta name="description" content="MQR events: internal competitions, industry workshops, research sprints, and community socials at Maastricht University.">
+  <meta property="og:title" content="Events · MQR">
+  <meta property="og:description" content="MQR events at Maastricht University.">
+  <meta property="og:type" content="website">
+  <link rel="stylesheet" href="css/tokens.css">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/pages.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <div class="header-inner">
+      <a href="index.html" class="logo" aria-label="MQR home">MQR</a>
+      <button type="button" class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Open menu">
+        <span class="nav-toggle-icon"></span>
+      </button>
+      <nav class="header-nav" id="primary-nav" aria-label="Primary">
+        <a href="research.html" class="nav-link">Research</a>
+        <a href="events.html" class="nav-link is-active" aria-current="page">Events</a>
+        <a href="join.html" class="nav-link">Join</a>
+        <a href="join.html#apply" class="btn btn-outline">Apply</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="page-hero">
+      <div class="section-inner">
+        <p class="hero-kicker">Events</p>
+        <h1>Beyond the desk.</h1>
+        <p>Competitions, industry exposure, and community — the events that complement hands-on research at MQR.</p>
+      </div>
+    </section>
+
+    <section class="feature-block" aria-labelledby="types-heading">
+      <div class="feature-block-inner">
+        <figure class="feature-block-media">
+          <img src="https://images.unsplash.com/photo-1505373877841-8d25f39f470e?w=900&q=80" alt="Speaker at an event">
+        </figure>
+        <div class="feature-block-content">
+          <p class="section-num">01 What we run</p>
+          <h2 id="types-heading">Events, competitions, industry exposure.</h2>
+          <div class="event-types">
+            <div class="event-type">
+              <h3>Competitions &amp; hackathons</h3>
+              <p>Trading competitions and short-form hackathons, open to members first and eventually to partner societies across Europe.</p>
+            </div>
+            <div class="event-type">
+              <h3>Industry workshops</h3>
+              <p>Practitioners from prop trading firms and quant funds for talks and direct exposure to the field.</p>
+            </div>
+            <div class="event-type">
+              <h3>Research sprints</h3>
+              <p>Short-form team challenges focused on designing and backtesting systematic ideas.</p>
+            </div>
+            <div class="event-type">
+              <h3>Socials</h3>
+              <p>Community events for members from data science, AI, econometrics, and mathematics.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="calendar" aria-labelledby="calendar-heading">
+      <div class="section-inner">
+        <p class="section-num">02 Upcoming</p>
+        <h2 id="calendar-heading">Calendar</h2>
+        <div class="calendar-section" id="calendar-upcoming" aria-live="polite">
+          <p class="calendar-empty">Loading events…</p>
+        </div>
+        <details class="past-events-toggle">
+          <summary>Past events</summary>
+          <div id="calendar-past" aria-live="polite"></div>
+        </details>
+      </div>
+    </section>
+
+    <section class="cta-strip">
+      <div class="section-inner">
+        <h2>Want to take part?</h2>
+        <p>Most events are open to MQR members first. Apply to join or reach out about sponsorship.</p>
+        <a href="join.html" class="btn btn-filled">Get involved</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <p class="footer-name">Maastricht Quantitative Research</p>
+          <p class="footer-meta">Founded 2026 · Maastricht University</p>
+        </div>
+        <div>
+          <p class="footer-heading">Pages</p>
+          <ul class="footer-links-list">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="research.html">Research</a></li>
+            <li><a href="events.html">Events</a></li>
+            <li><a href="join.html">Join</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="footer-heading">Connect</p>
+          <ul class="footer-links-list">
+            <li><a href="mailto:EMAIL@DOMAIN">EMAIL@DOMAIN</a></li>
+            <li><a href="https://LINKEDIN_URL" rel="noopener noreferrer">LinkedIn</a></li>
+          </ul>
+        </div>
+      </div>
+      <p class="footer-disclaimer">All trading activity is simulated on paper accounts. MQR does not manage money or accept member capital.</p>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+  <script src="js/events.js"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+{
+  "upcoming": [
+    {
+      "id": "industry-talk-sept-2026",
+      "title": "Prop Trading Industry Talk",
+      "date": "2026-09-18",
+      "time": "18:30",
+      "endTime": "20:00",
+      "location": "TBD · Maastricht University",
+      "type": "workshop",
+      "description": "Practitioners from a prop trading firm share what systematic research and execution look like on a professional desk.",
+      "link": null
+    },
+    {
+      "id": "fall-hackathon-2026",
+      "title": "Internal Quant Hackathon",
+      "date": "2026-10-24",
+      "time": "10:00",
+      "endTime": "18:00",
+      "location": "Maastricht University",
+      "type": "competition",
+      "description": "A day-long internal competition where member pods test systematic strategies under time pressure. Open to MQR members.",
+      "link": null
+    },
+    {
+      "id": "research-sprint-nov-2026",
+      "title": "Research Sprint: Mean Reversion",
+      "date": "2026-11-14",
+      "time": "14:00",
+      "endTime": "17:00",
+      "location": "Maastricht University",
+      "type": "research",
+      "description": "A short-form team challenge focused on designing and backtesting mean-reversion signals on liquid US equities.",
+      "link": null
+    }
+  ],
+  "past": [
+    {
+      "id": "spring-hackathon-2026",
+      "title": "Internal Quant Hackathon",
+      "date": "2026-04-12",
+      "location": "Maastricht University"
+    },
+    {
+      "id": "industry-talk-march-2026",
+      "title": "Prop Trading Industry Talk",
+      "date": "2026-03-20",
+      "location": "Maastricht University"
+    },
+    {
+      "id": "founding-kickoff-2026",
+      "title": "MQR Founding Kickoff",
+      "date": "2026-02-15",
+      "location": "Maastricht University"
+    },
+    {
+      "id": "intro-workshop-2026",
+      "title": "Intro to Systematic Trading Workshop",
+      "date": "2026-01-28",
+      "location": "Maastricht University"
+    }
+  ]
+}
