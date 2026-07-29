@@ -183,7 +183,7 @@
   display: flex;
   width: max-content;
   flex-shrink: 0;
-  animation: sponsor-carousel-scroll var(--carousel-duration, 40s) linear infinite;
+  animation: sponsor-carousel-scroll var(--carousel-duration, 55s) linear infinite;
   will-change: transform;
 }
 

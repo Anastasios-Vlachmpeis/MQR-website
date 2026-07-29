@@ -80,7 +80,7 @@
       track.innerHTML = half + half;
       track.style.setProperty("--carousel-shift", "-" + shift + "px");
 
-      var speed = 80;
+      var speed = 55;
       var duration = Math.max(20, shift / speed);
       track.style.setProperty("--carousel-duration", duration + "s");
     }
