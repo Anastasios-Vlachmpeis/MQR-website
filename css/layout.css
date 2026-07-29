@@ -178,13 +178,22 @@
   }
 }
 
-.footer-name {
-  color: var(--text-on-dark);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+.footer-logo {
+  display: inline-block;
   margin-bottom: var(--space-sm);
+  text-decoration: none;
+}
+
+.footer-logo:hover {
+  text-decoration: none;
+  opacity: 0.85;
+}
+
+.footer-logo img {
+  display: block;
+  height: 1.625rem;
+  width: auto;
+  filter: brightness(0) invert(1);
 }
 
 .footer-meta {
