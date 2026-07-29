@@ -160,7 +160,19 @@
 .sponsor-carousel {
   background: var(--bg-alt);
   border-bottom: 1px solid var(--border);
-  padding: var(--space-lg) 0;
+  padding: var(--space-md) 0 var(--space-lg);
+}
+
+.sponsor-carousel-label {
+  margin: 0 auto var(--space-sm);
+  max-width: var(--grid-width);
+  padding: 0 var(--space-lg);
+  text-align: center;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-muted);
 }
 
 .sponsor-carousel-viewport {
@@ -177,14 +189,17 @@
 .sponsor-carousel-track {
   display: flex;
   width: max-content;
-  animation: sponsor-carousel-scroll 55s linear infinite;
+  flex-shrink: 0;
+  animation: sponsor-carousel-scroll 40s linear infinite;
+  will-change: transform;
 }
 
 .sponsor-carousel-set {
   display: flex;
   align-items: center;
+  flex-shrink: 0;
   gap: var(--space-2xl);
-  padding: 0 var(--space-xl);
+  padding-right: var(--space-2xl);
   list-style: none;
 }
 
