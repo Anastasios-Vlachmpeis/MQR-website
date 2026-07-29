@@ -177,20 +177,13 @@
 
 .sponsor-carousel-viewport {
   overflow: hidden;
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    #000 8%,
-    #000 92%,
-    transparent
-  );
 }
 
 .sponsor-carousel-track {
   display: flex;
   width: max-content;
   flex-shrink: 0;
-  animation: sponsor-carousel-scroll 40s linear infinite;
+  animation: sponsor-carousel-scroll var(--carousel-duration, 40s) linear infinite;
   will-change: transform;
 }
 
@@ -218,11 +211,11 @@
 
 @keyframes sponsor-carousel-scroll {
   from {
-    transform: translateX(0);
+    transform: translate3d(0, 0, 0);
   }
 
   to {
-    transform: translateX(-50%);
+    transform: translate3d(var(--carousel-shift, -50%), 0, 0);
   }
 }
 
@@ -239,10 +232,6 @@
 
   .sponsor-carousel-set[aria-hidden="true"] {
     display: none;
-  }
-
-  .sponsor-carousel-viewport {
-    mask-image: none;
   }
 }
 
