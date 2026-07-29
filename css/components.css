@@ -155,6 +155,82 @@
   color: rgba(255, 255, 255, 0.45);
 }
 
+/* Sponsor carousel */
+
+.sponsor-carousel {
+  background: var(--bg-alt);
+  border-bottom: 1px solid var(--border);
+  padding: var(--space-lg) 0;
+}
+
+.sponsor-carousel-viewport {
+  overflow: hidden;
+  mask-image: linear-gradient(
+    to right,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.sponsor-carousel-track {
+  display: flex;
+  width: max-content;
+  animation: sponsor-carousel-scroll 55s linear infinite;
+}
+
+.sponsor-carousel-set {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2xl);
+  padding: 0 var(--space-xl);
+  list-style: none;
+}
+
+.sponsor-carousel-set li {
+  flex: 0 0 auto;
+}
+
+.sponsor-carousel-set img {
+  display: block;
+  height: 2.25rem;
+  width: auto;
+  max-width: 9rem;
+  object-fit: contain;
+  opacity: 0.72;
+}
+
+@keyframes sponsor-carousel-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sponsor-carousel-track {
+    animation: none;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+    max-width: var(--grid-width);
+    margin: 0 auto;
+    gap: var(--space-xl);
+  }
+
+  .sponsor-carousel-set[aria-hidden="true"] {
+    display: none;
+  }
+
+  .sponsor-carousel-viewport {
+    mask-image: none;
+  }
+}
+
 /* Page hero (inner pages) */
 
 .page-hero {
@@ -693,14 +769,19 @@
   padding: 0;
   margin-top: var(--space-xl);
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(120px, 150px));
   gap: var(--space-lg);
+  justify-content: start;
+}
+
+.book-grid > li {
+  min-width: 0;
 }
 
 .book-card {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: stretch;
   gap: var(--space-sm);
   text-align: center;
   text-decoration: none;
@@ -713,9 +794,9 @@
 }
 
 .book-cover {
+  display: block;
   width: 100%;
-  aspect-ratio: 2 / 3;
-  object-fit: cover;
+  height: auto;
   border-radius: 2px;
   transition: transform 0.18s ease;
   background: var(--bg-alt);
