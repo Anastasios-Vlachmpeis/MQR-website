@@ -773,6 +773,10 @@
   color: var(--navy);
 }
 
+.join-paths-cta {
+  text-align: center;
+}
+
 .join-apply-btn {
   margin-top: var(--space-xl);
 }
