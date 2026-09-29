@@ -140,7 +140,7 @@
     var pastEl = document.getElementById("calendar-past");
     if (!upcomingEl) return;
 
-    fetch("data/events.json")
+    fetch("data/events.json", { cache: "no-store" })
       .then(function (res) {
         if (!res.ok) throw new Error("Failed");
         return res.json();
