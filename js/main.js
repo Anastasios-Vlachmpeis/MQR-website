@@ -34,16 +34,11 @@
   }
 
   function initHeaderScroll() {
-    var header = document.getElementById("site-header");
-    var hero = document.querySelector(".hero-full");
-    if (!header || !hero) return;
+    var header = document.querySelector(".site-header");
+    if (!header) return;
 
     function update() {
-      if (window.scrollY > 80) {
-        header.classList.remove("site-header--dark");
-      } else {
-        header.classList.add("site-header--dark");
-      }
+      header.classList.toggle("is-scrolled", window.scrollY > 24);
     }
 
     window.addEventListener("scroll", update, { passive: true });
@@ -117,10 +112,133 @@
     window.addEventListener("resize", build);
   }
 
+  function initHeroFractal() {
+    var canvas = document.querySelector(".hero-fractal");
+    if (!canvas) return;
+
+    var ctx = canvas.getContext("2d", { alpha: false });
+    if (!ctx) return;
+
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var hero = canvas.closest(".hero");
+    var running = false;
+    var raf = 0;
+    var last = 0;
+    var started = performance.now();
+    var maxIter = 90;
+
+    function resize() {
+      var rect = canvas.getBoundingClientRect();
+      var w = Math.max(1, Math.round(rect.width * 0.42));
+      var h = Math.max(1, Math.round(rect.height * 0.42));
+      if (w > 520) {
+        h = Math.round(h * (520 / w));
+        w = 520;
+      }
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+      }
+    }
+
+    function draw(now) {
+      var w = canvas.width;
+      var h = canvas.height;
+      var img = ctx.createImageData(w, h);
+      var data = img.data;
+      var t = reduce ? 0.8 : (now - started) / 1000;
+      var angle = t * 0.35;
+      var cx = -0.745 + 0.055 * Math.cos(angle);
+      var cy = 0.186 + 0.055 * Math.sin(angle);
+      var zoom = 3;
+      var aspect = w / h;
+
+      for (var y = 0; y < h; y++) {
+        var zy0 = ((y / h) - 0.5) * 2.4 / zoom;
+        for (var x = 0; x < w; x++) {
+          var zx = ((x / w) - 0.5) * 2.4 * aspect / zoom;
+          var zy = zy0;
+          var i = 0;
+          var zx2 = zx * zx;
+          var zy2 = zy * zy;
+
+          while (i < maxIter && zx2 + zy2 < 4) {
+            zy = 2 * zx * zy + cy;
+            zx = zx2 - zy2 + cx;
+            zx2 = zx * zx;
+            zy2 = zy * zy;
+            i++;
+          }
+
+          var p = (y * w + x) * 4;
+          if (i === maxIter) {
+            data[p] = 3;
+            data[p + 1] = 6;
+            data[p + 2] = 14;
+          } else {
+            var mag = Math.sqrt(zx2 + zy2);
+            var n = i + 1 - Math.log(Math.log(mag)) / Math.LN2;
+            var u = Math.pow(Math.max(0, n) / maxIter, 0.55);
+            data[p] = (4 + u * 66) | 0;
+            data[p + 1] = (12 + u * 130) | 0;
+            data[p + 2] = (28 + u * 168) | 0;
+          }
+          data[p + 3] = 255;
+        }
+      }
+
+      ctx.putImageData(img, 0, 0);
+    }
+
+    function frame(now) {
+      if (!running) return;
+      if (now - last > 70) {
+        last = now;
+        draw(now);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (running || document.hidden) return;
+      running = true;
+      raf = requestAnimationFrame(frame);
+    }
+
+    function stop() {
+      running = false;
+      cancelAnimationFrame(raf);
+    }
+
+    resize();
+    draw(started);
+
+    if (!reduce) start();
+
+    window.addEventListener("resize", function () {
+      resize();
+      draw(performance.now());
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stop();
+      else if (!reduce) start();
+    });
+
+    if (!reduce && hero && "IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) start();
+        else stop();
+      });
+      observer.observe(hero);
+    }
+  }
+
   function init() {
     initNav();
     initHeaderScroll();
     initSponsorCarousel();
+    initHeroFractal();
   }
 
   if (document.readyState === "loading") {

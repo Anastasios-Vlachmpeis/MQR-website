@@ -44,7 +44,12 @@
 
   function groupByMonth(events) {
     var groups = {};
+    var undated = [];
     events.forEach(function (event) {
+      if (!event.date) {
+        undated.push(event);
+        return;
+      }
       var date = parseDate(event.date);
       var key = date.getFullYear() + "-" + String(date.getMonth() + 1).padStart(2, "0");
       if (!groups[key]) {
@@ -52,13 +57,20 @@
       }
       groups[key].events.push(event);
     });
-    return Object.keys(groups).sort().map(function (k) { return groups[k]; });
+    var grouped = Object.keys(groups).sort().map(function (k) { return groups[k]; });
+    if (undated.length) grouped.push({ label: "", events: undated });
+    return grouped;
   }
 
   function renderUpcoming(container, events) {
     var upcoming = events
-      .filter(function (e) { return !isPast(e.date); })
-      .sort(function (a, b) { return parseDate(a.date) - parseDate(b.date); });
+      .filter(function (e) { return !e.date || !isPast(e.date); })
+      .sort(function (a, b) {
+        if (!a.date && !b.date) return 0;
+        if (!a.date) return 1;
+        if (!b.date) return -1;
+        return parseDate(a.date) - parseDate(b.date);
+      });
 
     if (!upcoming.length) {
       container.innerHTML =
@@ -68,27 +80,38 @@
 
     var html = "";
     groupByMonth(upcoming).forEach(function (group) {
-      html += '<div class="calendar-month"><h3 class="calendar-month-title">' + group.label + "</h3>";
+      html += '<div class="calendar-month">';
+      if (group.label) html += '<h3 class="calendar-month-title">' + group.label + "</h3>";
       group.events.forEach(function (event) {
-        var date = parseDate(event.date);
         var timeStr = formatTime(event.time);
         if (event.endTime) timeStr += " – " + formatTime(event.endTime);
 
         html += '<article class="calendar-event">';
         html += '<div class="calendar-date-badge">';
-        html += '<span class="calendar-date-day">' + date.getDate() + "</span>";
-        html += '<span class="calendar-date-month">' + formatShortMonth(date) + "</span>";
+        if (event.date) {
+          var date = parseDate(event.date);
+          html += '<span class="calendar-date-day">' + date.getDate() + "</span>";
+          html += '<span class="calendar-date-month">' + formatShortMonth(date) + "</span>";
+        } else {
+          html += '<span class="calendar-date-tba">TBA</span>';
+        }
         html += "</div>";
         html += "<div>";
         html += "<h3>" + event.title + "</h3>";
-        html += '<p class="calendar-event-meta">' + timeStr;
-        if (event.location) html += " · " + event.location;
-        html += "</p>";
+        if (timeStr || event.location) {
+          html += '<p class="calendar-event-meta">';
+          html += timeStr;
+          if (timeStr && event.location) html += " · ";
+          if (event.location) html += event.location;
+          html += "</p>";
+        }
         if (event.description) {
           html += '<p class="calendar-event-detail">' + event.description + "</p>";
         }
         html += "</div>";
-        html += '<span class="type-pill">' + (TYPE_LABELS[event.type] || event.type) + "</span>";
+        if (event.type) {
+          html += '<span class="type-pill">' + (TYPE_LABELS[event.type] || event.type) + "</span>";
+        }
         html += "</article>";
       });
       html += "</div>";

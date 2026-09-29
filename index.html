@@ -25,7 +25,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header site-header--dark" id="site-header">
+  <header class="site-header" id="site-header">
     <div class="header-inner">
       <a href="index.html" class="logo" aria-label="MQR home">
         <img src="assets/logo.png" alt="MQR" width="619" height="387">
@@ -39,24 +39,20 @@
         <a href="events.html" class="nav-link">Events</a>
         <a href="resources.html" class="nav-link">Resources</a>
         <a href="partners.html" class="nav-link">Partners</a>
-        <a href="join.html" class="btn btn-light">Join</a>
+        <a href="join.html" class="btn btn-outline">Join</a>
       </nav>
     </div>
   </header>
 
   <main id="main">
-    <section class="hero-full" aria-labelledby="hero-heading" alt="Maastricht City Top View">
-      <div class="hero-full-bg">
-        <img src="assets/MAASBACK.jpg">
-        <div class="hero-full-overlay"></div>
-      </div>
-      <p class="hero-credit">Maastricht City · Wikimedia Commons</p>
-      <div class="hero-full-content">
-        <h1 id="hero-heading">UM's home of Quantitative Finance Enthusiasts</h1>
-        <p>Workshops, competitions, industry events, and hands-on systematic research. Built by students at Maastricht University.</p>
-        <div class="hero-full-actions">
-          <a href="join.html" class="btn btn-light">Apply to join</a>
-          <a href="#what-we-do" class="btn btn-outline btn-light">What we do</a>
+    <section class="hero" aria-labelledby="hero-heading">
+      <canvas class="hero-fractal" aria-hidden="true"></canvas>
+      <div class="section-inner">
+        <h1 id="hero-heading">UM's house of quant.</h1>
+        <p>Workshops, competitions, and systematic research for students at Maastricht University.</p>
+        <div class="hero-actions">
+          <a href="join.html" class="btn btn-filled">Apply to join</a>
+          <a href="research.html" class="btn btn-outline">Research department</a>
         </div>
       </div>
     </section>
@@ -75,19 +71,6 @@
         </div>
       </div>
     </section> -->
-
-    <section class="feature-block" aria-labelledby="about-heading">
-      <div class="feature-block-inner">
-        <figure class="feature-block-media">
-          <img src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=900&q=80" alt="Financial market data on screens">
-        </figure>
-        <div class="feature-block-content">
-          <h2 id="about-heading">A community around quantitative finance.</h2>
-          <p>MQR brings together students from data science, AI, econometrics, mathematics, and computer science who want to go deeper into quantitative research and finance than any course goes. We run workshops and competitions, bring practitioners to campus, and operate a systematic research department where members build and test their own strategies.</p>
-          <a href="about.html" class="text-link">About MQR</a>
-        </div>
-      </div>
-    </section>
 
     <section class="content-section" id="what-we-do" aria-labelledby="what-we-do-heading">
       <div class="section-inner">
@@ -114,29 +97,19 @@
       </div>
     </section>
 
-    <section class="feature-block feature-block--reverse" aria-labelledby="events-heading">
-      <div class="feature-block-inner">
-        <figure class="feature-block-media">
-          <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=900&q=80" alt="Students at a conference event">
-        </figure>
-        <div class="feature-block-content">
-          <h2 id="events-heading">Firms on campus, and us in their offices.</h2>
-          <p>Practitioner talks from prop trading firms and quant firms, office visits in Amsterdam, and partner-hosted workshops. Plus the socials that make the rest of it worth showing up for.</p>
-          <a href="events.html" class="text-link">See what we run</a>
-        </div>
+    <section class="content-section" aria-labelledby="events-heading">
+      <div class="section-inner">
+        <h2 id="events-heading">Firms on campus, and us in their offices.</h2>
+        <p>Practitioner talks from prop trading firms and quant firms, office visits in Amsterdam, and partner-hosted workshops. Plus the socials that make the rest of it worth showing up for.</p>
+        <a href="events.html" class="text-link">See what we run</a>
       </div>
     </section>
 
-    <section class="feature-block" aria-labelledby="join-heading">
-      <div class="feature-block-inner">
-        <figure class="feature-block-media">
-          <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=80" alt="Students collaborating">
-        </figure>
-        <div class="feature-block-content">
-          <h2 id="join-heading">Two ways in.</h2>
-          <p>Membership is open to any UM student with an interest in quantitative finance. No coding required. The research department recruits separately, in small cohorts. <a href="partners.html">Sponsors welcome too</a>.</p>
-          <a href="join.html" class="text-link">Join MQR</a>
-        </div>
+    <section class="content-section" aria-labelledby="join-heading">
+      <div class="section-inner">
+        <h2 id="join-heading">Two ways in.</h2>
+        <p>Membership is open to any UM student with an interest in quantitative finance. No coding required. The research department recruits separately, in small cohorts. <a href="partners.html">Sponsors welcome too</a>.</p>
+        <a href="join.html" class="text-link">Join MQR</a>
       </div>
     </section>
   </main>

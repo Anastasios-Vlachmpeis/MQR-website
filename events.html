@@ -25,7 +25,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
+  <header class="site-header" id="site-header">
     <div class="header-inner">
       <a href="index.html" class="logo" aria-label="MQR home">
         <img src="assets/logo.png" alt="MQR" width="619" height="387">
@@ -47,48 +47,21 @@
   <main id="main">
     <section class="page-hero">
       <div class="section-inner">
-        <p class="hero-kicker">Events</p>
         <h1>Beyond the desk.</h1>
         <p>Competitions, industry exposure, and community. The events that complement hands-on research at MQR.</p>
       </div>
     </section>
 
-    <section class="feature-block" aria-labelledby="types-heading">
-      <div class="feature-block-inner">
-        <figure class="feature-block-media">
-          <img src="assets/YappingT.png" alt="MQR members at an event">
-        </figure>
-        <div class="feature-block-content">
-          <h2 id="types-heading">Events, competitions, industry exposure.</h2>
-          <div class="event-types">
-            <div class="event-type">
-              <h3>Competitions &amp; hackathons</h3>
-              <p>Trading competitions and short-form hackathons, open to members first and eventually to partner societies across Europe.</p>
-            </div>
-            <div class="event-type">
-              <h3>Industry workshops</h3>
-              <p>Practitioners from prop trading firms and quant firms for talks and direct exposure to the field.</p>
-            </div>
-            <div class="event-type">
-              <h3>Research sprints</h3>
-              <p>Short-form team challenges focused on designing and backtesting systematic ideas.</p>
-            </div>
-            <div class="event-type">
-              <h3>Socials</h3>
-              <p>Borrels, game nights, and semester openers for members across data science, AI, econometrics, mathematics, and computer science.</p>
-            </div>
-            <div class="event-type">
-              <h3>Mentorship</h3>
-              <p>Senior students paired with first-years on programming, mathematics, and interview preparation. One pairing round per semester.</p>
-            </div>
-          </div>
-        </div>
+    <section class="content-section" aria-labelledby="calendar-heading">
+      <div class="section-inner">
+        <h2 id="calendar-heading">Calendar</h2>
+        <div id="calendar-upcoming" class="calendar-section"></div>
       </div>
     </section>
 
     <section class="content-section" id="programme" aria-labelledby="programme-heading">
       <div class="section-inner">
-        <h2 id="programme-heading">What we run</h2>
+        <h2 id="programme-heading">What runs each semester</h2>
         <dl class="programme-list">
           <div class="programme-row">
             <dt>Quant sessions <span class="programme-when">From September 2026</span></dt>
@@ -120,6 +93,37 @@
           </div>
         </dl>
         <p class="programme-note">Dates published here once the academic calendar is fixed. Members get them first.</p>
+      </div>
+    </section>
+
+    <section class="content-section" aria-labelledby="types-heading">
+      <div class="section-inner">
+        <h2 id="types-heading">Events, competitions, industry exposure.</h2>
+        <div class="event-types">
+          <div class="event-type">
+            <h3>Competitions &amp; hackathons</h3>
+            <p>Trading competitions and short-form hackathons, open to members first and eventually to partner societies across Europe.</p>
+          </div>
+          <div class="event-type">
+            <h3>Industry workshops</h3>
+            <p>Practitioners from prop trading firms and quant firms for talks and direct exposure to the field.</p>
+          </div>
+          <div class="event-type">
+            <h3>Research sprints</h3>
+            <p>Short-form team challenges focused on designing and backtesting systematic ideas.</p>
+          </div>
+          <div class="event-type">
+            <h3>Socials</h3>
+            <p>Borrels, game nights, and semester openers for members across data science, AI, econometrics, mathematics, and computer science.</p>
+          </div>
+          <div class="event-type">
+            <h3>Mentorship</h3>
+            <p>Senior students paired with first-years on programming, mathematics, and interview preparation. One pairing round per semester.</p>
+          </div>
+        </div>
+        <figure class="framed-photo framed-photo--inline">
+          <img src="assets/YappingT.png" alt="MQR members at an event">
+        </figure>
       </div>
     </section>
 
@@ -166,6 +170,7 @@
     </div>
   </footer>
 
+  <script src="js/events.js"></script>
   <script src="js/main.js"></script>
 </body>
 </html>
