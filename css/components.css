@@ -176,6 +176,10 @@
     grid-template-columns: repeat(3, 1fr);
   }
 
+  .join-paths {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
   .event-types {
     grid-template-columns: repeat(2, 1fr);
   }
