@@ -147,13 +147,17 @@
 }
 
 .site-footer {
+  position: relative;
   background: var(--bg);
   color: var(--text-muted);
   padding: var(--space-2xl) 0 var(--space-lg);
   border-top: 1px solid var(--border);
+  isolation: isolate;
 }
 
 .footer-inner {
+  position: relative;
+  z-index: 1;
   max-width: var(--grid-width);
   margin: 0 auto;
   padding: 0 var(--space-lg);
@@ -162,7 +166,16 @@
 .footer-grid {
   display: grid;
   gap: var(--space-xl);
-  margin-bottom: var(--space-xl);
+}
+
+.footer-mark {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 0;
+  display: block;
+  pointer-events: none;
+  image-rendering: pixelated;
 }
 
 @media (min-width: 48rem) {

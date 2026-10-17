@@ -467,12 +467,200 @@
     });
   }
 
+  function initFooterMark() {
+    var footer = document.querySelector(".site-footer");
+    if (!footer || footer.querySelector(".footer-mark")) return;
+
+    var canvas = document.createElement("canvas");
+    canvas.className = "footer-mark";
+    canvas.setAttribute("aria-hidden", "true");
+    footer.insertBefore(canvas, footer.firstChild);
+
+    var ctx = canvas.getContext("2d", { alpha: true });
+    if (!ctx) return;
+
+    var sky = [24, 80, 127];
+    var violet = [18, 58, 102];
+    var plum = [0, 16, 40];
+    var silver = [142, 180, 212];
+
+    var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    var started = performance.now();
+    var last = 0;
+    var raf = 0;
+    var running = false;
+
+    function hash01(n) {
+      n = n >>> 0;
+      n = Math.imul(n ^ (n >>> 16), 2146121005);
+      n = Math.imul(n ^ (n >>> 15), 2221713035);
+      return ((n ^ (n >>> 16)) >>> 8) / 16777216;
+    }
+
+    function resize() {
+      var rect = footer.getBoundingClientRect();
+      var cssW = Math.min(rect.width, Math.max(rect.height * 2.4, 280));
+      var cssH = rect.height;
+      canvas.style.width = cssW + "px";
+      canvas.style.height = cssH + "px";
+      var w = Math.max(1, Math.round(cssW * 0.42));
+      var h = Math.max(1, Math.round(cssH * 0.42));
+      if (w > 420) {
+        h = Math.round(h * (420 / w));
+        w = 420;
+      }
+      if (canvas.width !== w || canvas.height !== h) {
+        canvas.width = w;
+        canvas.height = h;
+      }
+    }
+
+    function draw(now) {
+      var w = canvas.width;
+      var h = canvas.height;
+      var img = ctx.createImageData(w, h);
+      var data = img.data;
+      var time = reduce ? 0 : (now - started) / 1000;
+      var shimmer = 15;
+      var drift = Math.sin(time * 0.45) * 0.78;
+      var block = 2;
+      var turns = 1.45;
+      var span = turns * Math.PI * 2;
+      var scx = h * 0.78;
+      var scy = h * 0.42;
+      var angCorner = Math.atan2((h - 1) - scy, 0 - scx);
+      var rCorner = Math.hypot(scx, (h - 1) - scy);
+      var coreR = Math.max(2, h * 0.02);
+      var growth = Math.log(rCorner / coreR) / span;
+
+      for (var y = 0; y < h; y += block) {
+        for (var x = 0; x < w; x += block) {
+          var dx = (x + 1) - scx;
+          var dy = (y + 1) - scy;
+          var rad = Math.hypot(dx, dy) + 0.001;
+          var ang = Math.atan2(dy, dx);
+          var delta = angCorner - ang;
+          delta = ((delta % (Math.PI * 2)) + Math.PI * 2) % (Math.PI * 2);
+          var best = 1e9;
+          var along = 0;
+          var rLine = coreR;
+          for (var k = 0; k < 4; k++) {
+            var dth = delta + k * Math.PI * 2;
+            if (dth > span + 0.15) continue;
+            var rl = rCorner * Math.exp(-growth * dth);
+            var dist = Math.abs(rad - rl);
+            if (dist < best) {
+              best = dist;
+              along = Math.max(0, Math.min(1, 1 - dth / span));
+              rLine = rl;
+            }
+          }
+          var half = Math.max(h * 0.1, rLine * 0.34);
+          var pick = hash01((y * w + x) ^ 539363090);
+          var pick2 = hash01((y * w + x) ^ 2654435769);
+          var edge = best / half;
+          if (rad < half * 0.55 && along < 0.25) {
+            edge = Math.min(edge, rad / (half * 0.55));
+          }
+          if (!reduce) edge += drift * (pick - 0.5);
+          var col = plum;
+          var bright = 0.7;
+          if (edge > 0.92 + (pick - 0.5) * 0.55) {
+            if (!(edge < 1.55 && pick > 0.94)) continue;
+            col = plum;
+            bright = 0.7;
+          } else {
+            var t = edge < 0 ? 0 : edge;
+            if (t > 0.15 && pick2 > 0.82 + (1 - t) * 0.2) continue;
+            if (t < 0.22) {
+              col = pick < 0.18 ? silver : (pick < 0.72 ? sky : violet);
+              bright = 0.9 - along * 0.15;
+            } else if (t < 0.55) {
+              col = pick < 0.35 ? sky : (pick < 0.7 ? violet : plum);
+              bright = 0.72;
+            } else {
+              col = pick < 0.6 ? plum : violet;
+              bright = 0.55;
+            }
+            bright *= 0.78 + pick2 * 0.4;
+          }
+
+          var yMax = Math.min(h, y + block);
+          var xMax = Math.min(w, x + block);
+          for (var py = y; py < yMax; py++) {
+            for (var px = x; px < xMax; px++) {
+              var grain = (hash01((py * w + px) ^ 2654435769) - 0.5) * 18;
+              var p = (py * w + px) * 4;
+              var r = col[0] * bright + grain;
+              var g = col[1] * bright + grain;
+              var b = col[2] * bright + grain;
+              if (!reduce) {
+                var wave = Math.sin(time * 0.7 + pick * 6.28318) * shimmer;
+                r += wave;
+                g += wave;
+                b += wave;
+              }
+              data[p] = r < 0 ? 0 : r > 255 ? 255 : r | 0;
+              data[p + 1] = g < 0 ? 0 : g > 255 ? 255 : g | 0;
+              data[p + 2] = b < 0 ? 0 : b > 255 ? 255 : b | 0;
+              data[p + 3] = 255;
+            }
+          }
+        }
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+
+    function frame(now) {
+      if (!running) return;
+      if (now - last > 140) {
+        last = now;
+        draw(now);
+      }
+      raf = requestAnimationFrame(frame);
+    }
+
+    function start() {
+      if (running || reduce || document.hidden) return;
+      running = true;
+      raf = requestAnimationFrame(frame);
+    }
+
+    function stop() {
+      running = false;
+      cancelAnimationFrame(raf);
+    }
+
+    resize();
+    draw(started);
+    if (!reduce) start();
+
+    window.addEventListener("resize", function () {
+      resize();
+      draw(performance.now());
+    });
+
+    document.addEventListener("visibilitychange", function () {
+      if (document.hidden) stop();
+      else start();
+    });
+
+    if (!reduce && "IntersectionObserver" in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) start();
+        else stop();
+      });
+      observer.observe(footer);
+    }
+  }
+
   function init() {
     initNav();
     initHeaderScroll();
     initSponsorCarousel();
     initHeroFractal();
     initPageHeroPixels();
+    initFooterMark();
   }
 
   if (document.readyState === "loading") {
